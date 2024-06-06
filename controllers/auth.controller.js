@@ -74,6 +74,7 @@ export const register = async (req, res) => {
         name: req.body.name,
         username: req.body.username,
         password: encryptPassword,
+        role: "admin"
     })
 
     User.create(newUser, (err, data) => {

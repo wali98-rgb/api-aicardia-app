@@ -4,6 +4,7 @@ const User = function (user) {
     this.name = user.name
     this.username = user.username
     this.password = user.password
+    this.role = user.role
 }
 
 const tableName = 'users'
@@ -14,6 +15,16 @@ User.create = (newUser, result) => {
             result(err, null)
             return
         } result(null, { id: res.insertId, newUser })
+    })
+}
+
+User.getAll = (result) => {
+    sql.query(`SELECT * FROM ${tableName}`, (err, res) => {
+        if (err) {
+            result(err, null)
+            return
+        }
+        result(null, res)
     })
 }
 
@@ -54,8 +65,25 @@ User.findByUsername = (username, result) => {
 }
 
 User.update = (id, data, result) => {
-    sql.query(`UPDATE ${tableName} SET name = ?, username = ?, password = ? WHERE id = ?`,
-        [data.name, data.username, data.password, id], (err, res) => {
+    sql.query(`UPDATE ${tableName} SET name = ?, username = ?, role = ? WHERE id = ?`,
+        [data.name, data.username, data.role, id], (err, res) => {
+            if (err) {
+                result(err, null)
+                return
+            }
+
+            if (res.affectedRows == 0) {
+                result({ type: 'not_found' }, null)
+                return
+            }
+
+            result(null, { id: id, data })
+        })
+}
+
+User.updatePassword = (id, data, result) => {
+    sql.query(`UPDATE ${tableName} SET password = ? WHERE id = ?`,
+        [data.password, id], (err, res) => {
             if (err) {
                 result(err, null)
                 return

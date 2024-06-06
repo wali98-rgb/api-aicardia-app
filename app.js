@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import authRoute from "./routes/auth.route.js"
 import loggingMiddleware from "./middlewares/loggingMiddleware.js"
 import errorHandler from "./middlewares/errorHandler.js"
+import userRoute from "./routes/user.route.js"
 
 const app = express()
 dotenv.config()
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(loggingMiddleware)
 app.get('/', (req, res) => res.json({ msg: "Selamat Datang di Ai Cardia: Prediksi Penyakit Jantung" }))
 app.use('/auth', authRoute)
+app.use('/user', userRoute)
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3002
