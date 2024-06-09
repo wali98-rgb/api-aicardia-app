@@ -37,16 +37,20 @@ export const create = async (req, res) => {
         name: req.body.name,
         username: req.body.username,
         password: encryptPassword,
+        phone_number: req.body.phone_number,
         role: req.body.role
     })
 
-    User.create(newUser, (err, data) => {
-        if (err) {
-            res.status(500).send({ msg: "Exist some error" })
-            return
-        }
-        res.send(data)
-    })
+    User.create({ name: req.body.name, username: req.body.username, password: encryptPassword, phone_number: req.body.phone_number, role: req.body.role })
+    res.status(201).json({ msg: "User Created Successfully" })
+
+    // User.create(newUser, (err, data) => {
+    //     if (err) {
+    //         res.status(500).send({ msg: "Exist some error" })
+    //         return
+    //     }
+    //     res.send(data)
+    // })
 }
 
 export const findAll = (req, res) => {

@@ -74,14 +74,19 @@ export const register = async (req, res) => {
         name: req.body.name,
         username: req.body.username,
         password: encryptPassword,
+        phone_number: req.body.phone_number,
         role: "admin"
     })
 
-    User.create(newUser, (err, data) => {
-        if (err) {
-            res.status(500).send({ msg: "Exist some error" })
-            return
-        }
-        res.send(data)
-    })
+    User.create({ name: req.body.name, username: req.body.username, password: encryptPassword, phone_number: req.body.phone_number, role: "admin" })
+    res.status(201).json({ msg: "Register Succesfully" })
+
+    // User.create(newUser, (err, data) => {
+    //     if (err) {
+    //         console.log(err);
+    //         res.status(500).send({ msg: "Exist some error" })
+    //         return
+    //     }
+    //     res.send(data)
+    // })
 }
