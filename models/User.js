@@ -1,11 +1,12 @@
 import sql from "./Connection.js"
+import mysql2 from "mysql2"
 import { Sequelize, DataTypes } from "sequelize"
 
 // Inisialisasi Sequelize dengan MySQL sebagai database
 const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
     dialect: 'mysql',
-    dialectModule: require('mysql2'),
+    dialectModule: mysql2,
 });
 
 // Definisi model User
