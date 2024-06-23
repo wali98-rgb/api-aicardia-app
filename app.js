@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Replace with the URL of your deployed Flask API
-const FLASK_API_URL = 'https://dd84-114-79-55-53.ngrok-free.app/predict';
+const FLASK_API_URL = 'https://140b-114-79-49-141.ngrok-free.app/predict';
 
 // Handle prediction request
 app.post('/predict', (req, res) => {
