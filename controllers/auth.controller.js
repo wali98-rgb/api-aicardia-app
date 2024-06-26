@@ -31,7 +31,7 @@ export const login = (req, res) => {
 
         // Lolos, generate token
         // (user info, secret key, expires time)
-        const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' })
+        const token = jwt.sign({ userId: user.id, name: user.name, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' })
         res.json({ token })
     })
 }
